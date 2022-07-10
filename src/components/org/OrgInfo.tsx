@@ -1,5 +1,5 @@
 import React from "react";
-import {Label, Textarea, TextInput} from "flowbite-react";
+import {Label, Textarea, TextInput, ToggleSwitch} from "flowbite-react";
 
 const OrgInfo: React.FC = () => {
     return (
@@ -18,7 +18,7 @@ const OrgInfo: React.FC = () => {
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="comment" value="Your message" />
+                        <Label htmlFor="comment" value="Descrição" />
                     </div>
                     <Textarea
                         id="orgDescription"
@@ -26,6 +26,9 @@ const OrgInfo: React.FC = () => {
                         required={true}
                         rows={4}
                         />
+                </div>
+                <div>
+                    <ToggleSwitch checked={true} label="Ativo" onChange={() => console.log("test")} disabled={true} />
                 </div>
             </form>
         </div>

@@ -1,8 +1,10 @@
 import type {NextPage} from "next";
 import Head from "next/head";
-import {Alert, Button, Card, Navbar, Tabs, Toast} from "flowbite-react";
+import {Button, Navbar, Tabs} from "flowbite-react";
 import Link from "next/link";
-import OrgInfo from "../components/OrgInfo";
+import OrgInfo from "../components/org/OrgInfo";
+import ProjectList from "../components/ProjectList";
+import {FaBookMedical, FaGrinBeam, FaInfoCircle, FaUsers} from "react-icons/fa";
 
 const Home: NextPage = () => {
     return (
@@ -42,12 +44,14 @@ const Home: NextPage = () => {
                 <div className="w-full px-4">
                     <div className="rounded border border-1 shadow border-gray-300 min-w-full">
                         <Tabs.Group aria-label="Default tab" style="underline">
-                            <Tabs.Item title="Informações" active={true}>
+                            <Tabs.Item icon={FaInfoCircle} title="Informações" active={true}>
                                 <OrgInfo />
                             </Tabs.Item>
-                            <Tabs.Item title="Projetos" active={true}>Project content</Tabs.Item>
-                            <Tabs.Item title="Funcionários" active={true}>Employee content</Tabs.Item>
-                            <Tabs.Item title="Atendimentos" active={true}>Appointments content</Tabs.Item>
+                            <Tabs.Item icon={FaBookMedical} title="Projetos" active={true}>
+                                <ProjectList />
+                            </Tabs.Item>
+                            <Tabs.Item icon={FaUsers} title="Funcionários" active={true}>Employee content</Tabs.Item>
+                            <Tabs.Item icon={FaGrinBeam} title="Atendimentos" active={true}>Appointments content</Tabs.Item>
                         </Tabs.Group>
                     </div>
                 </div>
