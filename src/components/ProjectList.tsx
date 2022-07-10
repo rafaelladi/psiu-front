@@ -34,7 +34,7 @@ const ProjectList: React.FC = () => {
                     </Table.Cell>
                     <Table.Cell>
                         <Link href="/test">
-                            <a href="/test" className="font-medium text-blue-600 hover:underline">
+                            <a className="font-medium text-blue-600 hover:underline">
                                 Edit
                             </a>
                         </Link>
