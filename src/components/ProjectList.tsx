@@ -1,5 +1,6 @@
 import { Table } from "flowbite-react";
 import React from "react";
+import Link from "next/link";
 
 const ProjectList: React.FC = () => {
     return (
@@ -32,9 +33,11 @@ const ProjectList: React.FC = () => {
                         X
                     </Table.Cell>
                     <Table.Cell>
-                        <a href="/test" className="font-medium text-blue-600 hover:underline">
-                            Edit
-                        </a>
+                        <Link href="/test">
+                            <a href="/test" className="font-medium text-blue-600 hover:underline">
+                                Edit
+                            </a>
+                        </Link>
                     </Table.Cell>
                 </Table.Row>
             </Table.Body>
