@@ -27,7 +27,7 @@ const ProjectList: React.FC = () => {
                         Psiu, eu te escuto
                     </Table.Cell>
                     <Table.Cell>
-                        Project de apoio emocional
+                        Projeto de apoio emocional
                     </Table.Cell>
                     <Table.Cell>
                         X
