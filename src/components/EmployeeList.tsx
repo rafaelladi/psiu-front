@@ -1,10 +1,9 @@
-import {Button, Modal, Table } from "flowbite-react";
+import { Table } from "flowbite-react";
 import React from "react";
 import Link from "next/link";
 import {FaCheck, FaTimes} from "react-icons/fa";
 
-const ProjectList: React.FC = () => {
-
+const EmployeeList: React.FC = () => {
     return (
         <Table hoverable={true}>
             <Table.Head>
@@ -19,7 +18,7 @@ const ProjectList: React.FC = () => {
                 </Table.HeadCell>
                 <Table.HeadCell>
                     <span className="sr-only">
-                        Editar
+                        Edit
                     </span>
                 </Table.HeadCell>
             </Table.Head>
@@ -35,9 +34,9 @@ const ProjectList: React.FC = () => {
                         <FaCheck color="green" />
                     </Table.Cell>
                     <Table.Cell>
-                        <Link href="/projects/1">
+                        <Link href="/test">
                             <a className="font-medium text-blue-600 hover:underline">
-                                Editar
+                                Edit
                             </a>
                         </Link>
                     </Table.Cell>
@@ -101,4 +100,4 @@ const ProjectList: React.FC = () => {
     );
 }
 
-export default ProjectList;
+export default EmployeeList;

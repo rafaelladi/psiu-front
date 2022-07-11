@@ -1,10 +1,11 @@
 import type {NextPage} from "next";
 import Head from "next/head";
-import {Button, Navbar, Tabs} from "flowbite-react";
-import Link from "next/link";
+import {Tabs} from "flowbite-react";
 import OrgInfo from "../components/org/OrgInfo";
 import ProjectList from "../components/ProjectList";
 import {FaBookMedical, FaGrinBeam, FaInfoCircle, FaUsers} from "react-icons/fa";
+import EmployeeList from "../components/EmployeeList";
+import {Top} from "../components/nav/Top";
 
 const Home: NextPage = () => {
     return (
@@ -15,33 +16,12 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <Navbar fluid={true} rounded={true}>
-                <Navbar.Brand href="https://flowbite.com">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="https://flowbite.com/docs/images/logo.svg"
-                         className="mr-3 h-6 sm:h-9"
-                         alt="Flowbite logo"/>
-                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                  Be Connect
-              </span>
-                </Navbar.Brand>
-                <div className="flex md:order-2">
-                    <Button>
-                        Get started
-                    </Button>
-                    <Navbar.Toggle/>
-                </div>
-                <Navbar.Collapse>
-                    <Link href="/test"><Navbar.Link href="/test" active={true}>Home</Navbar.Link></Link>
-                    <Link href="/test"><Navbar.Link href="/test" active={true}>About</Navbar.Link></Link>
-                    <Link href="/"><Navbar.Link href="/" active={true}>Services</Navbar.Link></Link>
-                    <Link href="/"><Navbar.Link href="/" active={true}>Pricing</Navbar.Link></Link>
-                    <Link href="/"><Navbar.Link href="/" active={true}>Contact</Navbar.Link></Link>
-                </Navbar.Collapse>
-            </Navbar>
+            <Top />
 
             <main className="w-screen h-screen flex flex-col items-center">
                 <div className="w-full px-4">
+                    <h2 className="text-2xl">Org XXXX</h2>
+                    <div className="py-2" />
                     <div className="rounded border border-1 shadow border-gray-300 min-w-full">
                         <Tabs.Group aria-label="Default tab" style="underline">
                             <Tabs.Item icon={FaInfoCircle} title="Informações" active={true}>
@@ -50,7 +30,9 @@ const Home: NextPage = () => {
                             <Tabs.Item icon={FaBookMedical} title="Projetos" active={true}>
                                 <ProjectList />
                             </Tabs.Item>
-                            <Tabs.Item icon={FaUsers} title="Funcionários" active={true}>Employee content</Tabs.Item>
+                            <Tabs.Item icon={FaUsers} title="Funcionários" active={true}>
+                                <EmployeeList />
+                            </Tabs.Item>
                             <Tabs.Item icon={FaGrinBeam} title="Atendimentos" active={true}>Appointments content</Tabs.Item>
                         </Tabs.Group>
                     </div>

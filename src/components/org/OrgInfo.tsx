@@ -12,7 +12,7 @@ const OrgInfo: React.FC = () => {
                     <TextInput
                         id="orgName"
                         type="text"
-                        value="Org XXXX"
+                        placeholder="Org XXXX"
                         required={true}
                         />
                 </div>
