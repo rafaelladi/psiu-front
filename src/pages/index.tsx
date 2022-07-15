@@ -1,22 +1,24 @@
-import {Button, Label, TextInput} from "flowbite-react";
+import {Button, Label, Spinner, TextInput} from "flowbite-react";
 import {NextPage} from "next";
 import Head from "next/head";
 import {Top} from "../components/nav/Top";
-import React, {FormEvent, useState} from "react";
 import Link from "next/link";
+import {useForm} from "../hooks/useForm";
+import {signIn, SignInRequest} from "../api/auth";
+import {useRouter} from "next/router";
 
 const Home: NextPage = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const router = useRouter();
 
-    const updateField = (e: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<any>>) => {
-        setter(e.target.value)
-    }
+    const initialState: SignInRequest = {
+        email: "",
+        password: ""
+    };
 
-    const onSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(email, password);
-    }
+    const { onChange, onSubmit, values, isLoading } = useForm(initialState, async () => {
+        await signIn(values);
+        await router.push("/org")
+    });
 
     return (
         <>
@@ -39,9 +41,9 @@ const Home: NextPage = () => {
                         <TextInput
                             id="email"
                             type="email"
-                            placeholder="user@domain.com"
-                            value={email}
-                            onChange={(e) => updateField(e, setEmail)}
+                            placeholder="Email"
+                            defaultValue={initialState.email}
+                            onChange={onChange}
                             required={true}
                         />
                         <div className="block">
@@ -50,12 +52,22 @@ const Home: NextPage = () => {
                         <TextInput
                             id="password"
                             type="password"
-                            value={password}
-                            onChange={(e) => updateField(e, setPassword)}
+                            defaultValue={initialState.password}
+                            placeholder="Senha"
+                            onChange={onChange}
                             required={true}
                         />
                         <div className="pt-3 flex flex-col items-end">
-                            <Button type="submit">Entrar</Button>
+                            <Button disabled={isLoading} type="submit">
+                                {
+                                    isLoading ?
+                                        <>
+                                            <Spinner />
+                                            <span className="pl-3">Entrar</span>
+                                        </> :
+                                        "Entrar"
+                                }
+                            </Button>
                         </div>
                     </form>
                     <div className="flex flex-col item-center pt-4">
