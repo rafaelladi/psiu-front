@@ -2,9 +2,20 @@ import {api} from "../axios";
 import {AxiosResponse} from "axios";
 
 export interface Token {
-    token: string
-    refreshToken: string
-    tokenType: string
+    user: {
+        name: string
+        email: string
+        role: string
+        orgId: number
+        projectId: number
+        owner: boolean
+        id: number
+    }
+    token: {
+        accessToken: string
+        refreshToken: string
+        tokenType: string
+    }
 }
 
 export interface SignInRequest {
@@ -17,12 +28,12 @@ export const signIn = async (body: SignInRequest): Promise<AxiosResponse> => {
 
     const data = res.data as Token;
 
-    const token = `${data.tokenType} ${data.token}`;
+    const token = `${data.token.tokenType} ${data.token.accessToken}`;
 
     api.defaults.headers.common["Authorization"] = token;
 
     localStorage.setItem("token", token);
-    localStorage.setItem("refreshToken", data.refreshToken);
+    localStorage.setItem("refreshToken", data.token.refreshToken);
 
     return res;
 }
