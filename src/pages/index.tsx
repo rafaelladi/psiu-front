@@ -4,7 +4,7 @@ import Head from "next/head";
 import {Top} from "../components/nav/Top";
 import Link from "next/link";
 import {useForm} from "../hooks/useForm";
-import {signIn, SignInRequest} from "../api/auth";
+import {signIn, SignInRequest, Token} from "../api/auth";
 import {useRouter} from "next/router";
 
 const Home: NextPage = () => {
@@ -15,9 +15,12 @@ const Home: NextPage = () => {
         password: ""
     };
 
-    const { onChange, onSubmit, values, isLoading } = useForm(initialState, async () => {
-        await signIn(values);
-        await router.push("/org")
+    const { onChange, onSubmit, values, isLoading } = useForm<SignInRequest, Token>(initialState, async () => {
+        return await signIn(values);
+    }, async () => {
+        await router.push("/org");
+    }, async (e) => {
+        console.error(e?.response?.status);
     });
 
     return (

@@ -19,6 +19,8 @@ createAuthRefreshInterceptor(api, async (request) => {
 }, {
     statusCodes: [ 401, 403 ],
     shouldRefresh(error: AxiosError): boolean {
-        return !!(localStorage.getItem("refreshToken"));
+        const refreshToken = localStorage.getItem("refreshToken")
+        console.log(refreshToken !== "undefined");
+        return refreshToken !== "undefined";
     }
 });

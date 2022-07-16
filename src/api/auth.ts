@@ -1,4 +1,5 @@
 import {api} from "../axios";
+import {AxiosResponse} from "axios";
 
 export interface Token {
     token: string
@@ -11,14 +12,10 @@ export interface SignInRequest {
     password: string
 }
 
-export const signIn = async (body: SignInRequest) => {
+export const signIn = async (body: SignInRequest): Promise<AxiosResponse> => {
     const res = await api.post("/auth/sign-in", body);
-    if(res.status !== 200) {
-        //TODO CREATE ERROR MESSAGE?
-        return;
-    }
 
-    const data = res.data;
+    const data = res.data as Token;
 
     const token = `${data.tokenType} ${data.token}`;
 
@@ -26,6 +23,8 @@ export const signIn = async (body: SignInRequest) => {
 
     localStorage.setItem("token", token);
     localStorage.setItem("refreshToken", data.refreshToken);
+
+    return res;
 }
 
 export interface SignUpRequest {

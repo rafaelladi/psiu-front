@@ -1,14 +1,30 @@
 import React, { useState } from "react";
+import {AxiosError, AxiosResponse} from "axios";
 
-interface Form<Type> {
+interface Form<Type, R> {
     onChange: any
     onSubmit: any
     values: Type
     isLoading: boolean
+    data?: R
+    isSuccess: boolean
+    error?: AxiosError
 }
 
-export function useForm<Type>(initialState: Type, callback: () => any): Form<Type> {
+export interface Response {
+    data?: any
+    error?: any
+    success: boolean
+}
+
+export function useForm<Type, R>(initialState: Type,
+                              callback: () => Promise<AxiosResponse>,
+                              onSuccess?: (data: any) => any,
+                              onError?: (error: AxiosError) => any): Form<Type, R> {
     const [values, setValues] = useState(initialState);
+    const [data, setData] = useState<R>();
+    const [isSuccess, setSuccess] = useState(false);
+    const [error, setError] = useState<any>();
     const [isLoading, setLoading] = useState(false);
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +34,17 @@ export function useForm<Type>(initialState: Type, callback: () => any): Form<Typ
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-        await callback();
+        try {
+            const response = await callback();
+            setData(response.data);
+            setSuccess(true);
+            onSuccess?.(response.data);
+        } catch (e) {
+            const error = e as AxiosError;
+            setError(error);
+            setSuccess(false);
+            onError?.(error);
+        }
         setLoading(false);
     };
 
@@ -26,6 +52,9 @@ export function useForm<Type>(initialState: Type, callback: () => any): Form<Typ
         onChange,
         onSubmit,
         values,
-        isLoading
+        isLoading,
+        data,
+        isSuccess,
+        error
     };
 }
